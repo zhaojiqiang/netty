@@ -28,7 +28,7 @@ public class TestHttpServerHandler extends SimpleChannelInboundHandler<HttpObjec
 			if("/favicon.ico".equals(uri.getPath())){
 				System.out.println("请求/favicon.ico");
 				return;
-			}
+			}	
 			System.out.println(uri.getPath());
 			ByteBuf content = Unpooled.copiedBuffer("Hello World",CharsetUtil.UTF_8);
 			FullHttpResponse response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK	,
