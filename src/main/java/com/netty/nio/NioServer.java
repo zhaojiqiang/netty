@@ -13,12 +13,17 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class NioServer {
 
 	private static Map<String, SocketChannel> clientMap = new HashMap<>();
 
-	public static void main(String[] args) throws Exception {
+	public static void main2(String[] args) throws Exception {
 		ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
 		// false = 非阻塞
 		serverSocketChannel.configureBlocking(false);
@@ -30,8 +35,8 @@ public class NioServer {
 
 		while (true) {
 			// 一直阻塞在这，知道他关心的SelectionKey 事件的发生
-			selector.select();
 			// 之前注册所有的时间集合
+			selector.select();
 			Set<SelectionKey> selectedKeys = selector.selectedKeys();
 			Iterator<SelectionKey> iterator = selectedKeys.iterator();
 			while (iterator.hasNext()) {
@@ -82,6 +87,29 @@ public class NioServer {
 			}
 		}
 
+	}
+	
+	
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		ExecutorService newFixedThreadPool = Executors.newFixedThreadPool(10);
+		Future<Integer> submit = newFixedThreadPool.submit(new Callable<Integer>() {
+
+			@Override
+			public Integer call() throws Exception {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("卧槽");
+				return 1024;
+			}
+		});
+		Object object = submit.get();
+		System.out.println(object);
+		System.out.println("end");
+		Thread.sleep(5000);
 	}
 
 }
