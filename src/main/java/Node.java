@@ -1,3 +1,4 @@
+import java.util.concurrent.Callable;
 
 public class Node {
 	
@@ -20,9 +21,30 @@ public class Node {
 	 *			只需发送双方数据本身，节省网络带宽
 	 *			升级版http连接
 	 *			
-	 * 	
+	 * 	Future所有的事情都是开发人员自己处理，而netty使用观察者模式 来回调
 	 * 
 	 * 
 	 */
 
+	
+	public static void main(String[] args) {
+		MPA mpb = new MPA();
+		Thread a = new Thread(mpb);
+		a.start();
+	}
+	
+	static class MPA implements Runnable{
+
+		@Override
+		public void run() {
+			
+		}}
+	static class MPB implements Callable<Integer>{
+
+		@Override
+		public Integer call() throws Exception {
+			return 1;
+		}
+		
+	}
 }
