@@ -2,6 +2,7 @@ package com.netty.fifth;
 
 import java.net.InetSocketAddress;
 
+import io.netty.bootstrap.Bootstrap;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -26,7 +27,10 @@ public class MyServer {
 //			bossGroup.shutdownGracefully();
 //			workerGroup.shutdownGracefully();
 //		}
-		int [] arr = new int[1024111];
-		System.gc();
+//		int [] arr = new int[1024111];
+//		System.gc();
+//		Thread.sleep(100000000);
+		ArrayList arrayList = new ArrayList();
+		arrayList.fr();
 	}
 }
